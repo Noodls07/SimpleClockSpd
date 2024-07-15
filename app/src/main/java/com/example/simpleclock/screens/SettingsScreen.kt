@@ -55,7 +55,6 @@ import com.example.simpleclock.settingsmodel.DataStoreManager
 import com.example.simpleclock.ui.theme.SimpleClockTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 
@@ -300,8 +299,8 @@ fun SettingsScreenElse(model: ClockModel, navController: NavController, dataStor
                                 textSize.let {
                                     this.textSize = 30F
                                 }
-                                typeface =  resources.getFont(R.font.anton)// Typeface.DEFAULT
-                                setTextColor(context.getColor(R.color.white))
+                                typeface =  resources.getFont(R.font.russoone_regular)//Typeface.DEFAULT_BOLD
+                                setTextColor(context.getColor(R.color.lime))
 
                             }
                         }
