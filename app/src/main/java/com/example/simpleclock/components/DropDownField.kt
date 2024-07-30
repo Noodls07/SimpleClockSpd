@@ -31,9 +31,9 @@ import com.example.simpleclock.ui.theme.SimpleClockTheme
 @Composable
 fun DropDownField(model: ClockModel){
     val clockSizeText = listOf("30","36","40","45","50","60","70","80","90","100","120")
-    val selectedText = remember {
-        mutableStateOf(model.clockTextSizeBig.toInt().toString())
-    }
+//    val selectedText = remember {
+//        mutableStateOf(model.clockTextSizeBig.toInt().toString())
+//    }
     val expanded = remember {
         mutableStateOf(false)
     }
@@ -53,7 +53,7 @@ fun DropDownField(model: ClockModel){
          ){
 
             TextField(
-                value = selectedText.value,
+                value = model.clockTextSizeBig.toInt().toString(),//selectedText.value,
                 onValueChange = {},
                 readOnly = true,
                 trailingIcon = {
@@ -69,7 +69,7 @@ fun DropDownField(model: ClockModel){
                      DropdownMenuItem(
                          text = { Text ( text = it ) },
                          onClick = {
-                             selectedText.value = it
+                             //selectedText.value = it
                              expanded.value = false
                              model.setSize(it.toFloat())
                          }
