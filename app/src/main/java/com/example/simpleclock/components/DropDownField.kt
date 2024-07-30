@@ -30,7 +30,7 @@ import com.example.simpleclock.ui.theme.SimpleClockTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownField(model: ClockModel){
-    val clockSizeText = listOf("30","36","40","45","50","60","70","80","90","100","120","140")
+    val clockSizeText = listOf("30","36","40","45","50","60","70","80","90","100","120")
 //    val selectedText = remember {
 //        mutableStateOf(model.clockTextSizeBig.toInt().toString())
 //    }
