@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -18,6 +19,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -195,7 +197,10 @@ fun ClockScreenElse(
             horizontalArrangement = Arrangement.Center
         ) {
 
-            Column(modifier = Modifier,Arrangement.Center,Alignment.CenterHorizontally) {
+            Column(
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment =  Alignment.CenterHorizontally
+            ) {
                 AndroidView(
 
                     factory = {context ->
@@ -229,17 +234,22 @@ fun ClockScreenElse(
                     )
                 }
             }
-
-            Text( textAlign =TextAlign.Center,
-                text = "|",
-                color = Color.White,
-                fontSize = ((model.clockTextSizeBig + model.clockTextSizeSmall)*1.5).sp,
-                fontWeight =FontWeight.W100
-            )
+            VerticalDivider(modifier = Modifier
+                .padding(start = 15.dp, end = 15.dp)
+                .height(((model.clockTextSizeBig + model.clockTextSizeSmall)*1.2).dp)
+                ,
+                thickness = 3.dp,
+                color = Color.White)
+//            Text( textAlign =TextAlign.Center,
+//                text = "|",
+//                color = Color.White,
+//                fontSize = ((model.clockTextSizeBig + model.clockTextSizeSmall)*1.5).sp,
+//                fontWeight =FontWeight.W100
+//            )
 
             //if (!model.pipOn) Spacer(modifier = Modifier.size(20.dp))
 
-            Row(modifier = Modifier.padding(top = 20.dp, start = 10.dp),
+            Row(
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ){
