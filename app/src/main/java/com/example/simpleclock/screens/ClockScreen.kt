@@ -105,7 +105,7 @@ fun ClockScreen(
                     textSize.let {
                         this.textSize = model.clockTextSizeBig
                     }
-                    typeface =  resources.getFont(R.font.chivo_regular)
+                    typeface =  resources.getFont(R.font.anton)
                     setTextColor(context.getColor(R.color.Green))
                 }
             },
@@ -245,13 +245,13 @@ fun ClockScreenElse(
             ){
                 Text(
                     text = if ( speed.intValue > 0) (speed.intValue + 4).toString()
-                    else (115+ speed.intValue).toString(),
+                           else speed.intValue.toString(),
                     fontFamily =  FontFamily(
                         Font(R.font.sairasemicondensed_bold),//sairasemicondensed_bold
                     ),
                     color = if ((speed.intValue >= 0) and (speed.intValue+4<=120)) Color(0xFFFFFFFF)
                     else Color(0xFFF57F17),
-                    fontSize = if (!model.pipOn) 60.sp else 30.sp,
+                    fontSize = if (!model.pipOn) 65.sp else 30.sp,
                     textAlign = TextAlign.Center,
 
                     )
