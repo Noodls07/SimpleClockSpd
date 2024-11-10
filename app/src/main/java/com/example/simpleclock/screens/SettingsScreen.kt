@@ -2,9 +2,7 @@ package com.example.simpleclock.screens
 
 
 import android.widget.TextClock
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -22,33 +20,18 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.asAndroidBitmap
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onSizeChanged
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.imageResource
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.toSize
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.navigation.NavController
 import com.example.simpleclock.R
 import com.example.simpleclock.WindowType
+import com.example.simpleclock.components.ColorImage
 import com.example.simpleclock.components.DropDownField
-import com.example.simpleclock.navigation.Screens
 import com.example.simpleclock.rememberWindowSize
 import com.example.simpleclock.settingsmodel.ClockModel
 import com.example.simpleclock.settingsmodel.DataStoreManager
@@ -61,32 +44,34 @@ import kotlinx.coroutines.launch
 @Composable
 fun ShowSettingsScreen(
     model: ClockModel,
-    navController: NavController,
+    gotoClockScreen:()->Unit,
     dataStoreManager: DataStoreManager
 ){
     val windowSize = rememberWindowSize()
 
     when (windowSize.width) {
-        WindowType.Compact -> SettingsScreen(model, navController,dataStoreManager)
-        else -> SettingsScreenElse(model, navController,dataStoreManager)
+        WindowType.Compact -> SettingsScreen(
+            model,
+            gotoClockScreen,
+            dataStoreManager
+        )
+        else -> SettingsScreenElse(
+            model,
+            gotoClockScreen,
+            dataStoreManager
+        )
     }
 }
 
 
 
-
-
-
 @Composable
-fun SettingsScreen(model: ClockModel, navController: NavController, dataStoreManager: DataStoreManager) {
+fun SettingsScreen(
+    model: ClockModel,
+    gotoClockScreen:()->Unit,
+    dataStoreManager: DataStoreManager
+) {
     //val context = LocalContext.current
-    val imageBitmap: ImageBitmap = ImageBitmap.imageResource(
-        LocalContext.current.resources,
-        R.drawable.img
-    )
-    val bitmapWidth = imageBitmap.width
-    val bitmapHeight = imageBitmap.height
-    var imageSize by remember { mutableStateOf(Size.Zero) }
 
     Scaffold(
         floatingActionButton = {
@@ -97,11 +82,7 @@ fun SettingsScreen(model: ClockModel, navController: NavController, dataStoreMan
                     CoroutineScope(Dispatchers.IO).launch {
                         dataStoreManager.saveSettings(model)
                     }
-                    navController.navigate(Screens.ClockScreen.route){
-                        popUpTo(Screens.ClockScreen.route){
-                            inclusive = true
-                        }
-                    }
+                    gotoClockScreen()
                 }
             )
             {
@@ -118,43 +99,9 @@ fun SettingsScreen(model: ClockModel, navController: NavController, dataStoreMan
         )
         {
             DropDownField(model)
-            Image(
-                painter = painterResource(id = R.drawable.img),
-                contentDescription = null,
-                contentScale = ContentScale.FillBounds,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(500.dp)
-                    //.rotate(90F)
-                    .clip(RoundedCornerShape(6.dp))
-                    .pointerInput(false) {
-                        detectTapGestures { offset: Offset ->
-                            // Touch coordinates on image
-                            val offsetX = offset.x
-                            val offsetY = offset.y
-                            // Scale from Image touch coordinates to range in Bitmap
-                            val scaledX = (bitmapWidth / imageSize.width) * offsetX
-                            val scaledY = (bitmapHeight / imageSize.height) * offsetY
-                            try {
-                                val pixel: Int = imageBitmap
-                                    .asAndroidBitmap()
-                                    .getPixel(scaledX.toInt(), scaledY.toInt())
-                                // Don't know if there is a Compose counterpart for this
-                                val red = android.graphics.Color.red(pixel)
-                                val green = android.graphics.Color.green(pixel)
-                                val blue = android.graphics.Color.blue(pixel)
 
-                                model.setColor(red, green, blue)
+            ColorImage(model, height = 0.8F)
 
-
-                            } catch (e: Exception) {
-                                println("Exception e: ${e.message}")
-                            }
-                        }
-                    }
-                    .onSizeChanged { imageSize = it.toSize() }
-
-            )
             Text(
                 modifier = Modifier.padding(start = 5.dp),
                 text = "Clock preview",
@@ -192,15 +139,11 @@ fun SettingsScreen(model: ClockModel, navController: NavController, dataStoreMan
 
 
 @Composable
-fun SettingsScreenElse(model: ClockModel, navController: NavController, dataStoreManager: DataStoreManager) {
-
-    val imageBitmap: ImageBitmap = ImageBitmap.imageResource(
-        LocalContext.current.resources,
-        R.drawable.img
-    )
-    val bitmapWidth = imageBitmap.width
-    val bitmapHeight = imageBitmap.height
-    var imageSize by remember { mutableStateOf(Size.Zero) }
+fun SettingsScreenElse(
+    model: ClockModel,
+    gotoClockScreen:()->Unit,
+    dataStoreManager: DataStoreManager
+) {
 
     Scaffold(
         floatingActionButton = {
@@ -211,7 +154,7 @@ fun SettingsScreenElse(model: ClockModel, navController: NavController, dataStor
                     CoroutineScope(Dispatchers.IO).launch {
                         dataStoreManager.saveSettings(model)
                     }
-                    navController.popBackStack() //navigate(Screens.ClockScreen.route)
+                    gotoClockScreen()
                 }
             )
             {
@@ -227,44 +170,7 @@ fun SettingsScreenElse(model: ClockModel, navController: NavController, dataStor
             verticalAlignment =  Alignment.CenterVertically
         )
         {
-                Image(
-                    painter = painterResource(id = R.drawable.img),
-                    contentDescription = null,
-                    contentScale = ContentScale.FillBounds,
-                    modifier = Modifier
-                        .padding(3.dp)
-                        .fillMaxSize(0.8F)
-                        //.height(500.dp)
-                        //.rotate(90F)
-                        .clip(RoundedCornerShape(6.dp))
-                        .pointerInput(false) {
-                            detectTapGestures { offset: Offset ->
-                                // Touch coordinates on image
-                                val offsetX = offset.x
-                                val offsetY = offset.y
-                                // Scale from Image touch coordinates to range in Bitmap
-                                val scaledX = (bitmapWidth / imageSize.width) * offsetX
-                                val scaledY = (bitmapHeight / imageSize.height) * offsetY
-                                try {
-                                    val pixel: Int = imageBitmap
-                                        .asAndroidBitmap()
-                                        .getPixel(scaledX.toInt(), scaledY.toInt())
-                                    // Don't know if there is a Compose counterpart for this
-                                    val red = android.graphics.Color.red(pixel)
-                                    val green = android.graphics.Color.green(pixel)
-                                    val blue = android.graphics.Color.blue(pixel)
-
-                                    model.setColor(red, green, blue)
-
-
-                                } catch (e: Exception) {
-                                    println("Exception e: ${e.message}")
-                                }
-                            }
-                        }
-                        .onSizeChanged { imageSize = it.toSize() }
-
-                )
+            ColorImage(model, width = 0.8F)
 
             Spacer(modifier = Modifier.height(10.dp))
 
@@ -307,7 +213,7 @@ fun SettingsScreenElse(model: ClockModel, navController: NavController, dataStor
                     )
                 }
             }
-            }
+        }
 
 
 
@@ -321,7 +227,12 @@ fun SettingsScreenElse(model: ClockModel, navController: NavController, dataStor
 @Composable
 fun SowImg(){
     SimpleClockTheme() {
-        SettingsScreen(model = ClockModel(),NavController(LocalContext.current.applicationContext), dataStoreManager = DataStoreManager(LocalContext.current.applicationContext))
+        SettingsScreen(
+            model = ClockModel(),
+            //NavController(LocalContext.current.applicationContext),
+            gotoClockScreen = {},
+            dataStoreManager = DataStoreManager(LocalContext.current.applicationContext)
+        )
         //SettingsScreenElse(model = ClockModel(LocalContext.current.applicationContext),NavController(LocalContext.current.applicationContext))
     }
 }

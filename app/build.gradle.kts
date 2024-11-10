@@ -1,11 +1,12 @@
 plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsKotlinAndroid)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
     namespace = "com.example.simpleclock"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.simpleclock"
@@ -70,6 +71,8 @@ dependencies {
     implementation (libs.androidx.datastore.preferences)
     implementation (libs.androidx.lifecycle.viewmodel.compose)
     implementation (libs.androidx.navigation.compose)
+
+    implementation(libs.kotlinx.serialization.json)
 
 
 }
