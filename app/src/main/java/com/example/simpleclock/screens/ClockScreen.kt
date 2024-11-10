@@ -106,7 +106,7 @@ fun ClockScreen(
                         this.textSize = model.clockTextSizeBig
                     }
                     typeface =  resources.getFont(R.font.chivo_regular)
-                    setTextColor(context.getColor(R.color.lime))
+                    setTextColor(context.getColor(R.color.Green))
                 }
             },
                 update = {
@@ -207,7 +207,7 @@ fun ClockScreenElse(
                                 this.textSize = model.clockTextSizeBig
                             }
                             typeface =  resources.getFont(R.font.anton)//chivo_regular
-                            setTextColor(context.getColor(R.color.lime))
+                            setTextColor( context.getColor(R.color.Green))
                         }
                     },
                     update = {

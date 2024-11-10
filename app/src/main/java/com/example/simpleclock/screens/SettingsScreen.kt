@@ -126,7 +126,7 @@ fun SettingsScreen(
                                 this.textSize = 30F
                             }
                             typeface =  resources.getFont(R.font.russoone_regular)//Typeface.DEFAULT_BOLD
-                            setTextColor(context.getColor(R.color.lime))
+                            setTextColor(context.getColor(R.color.Green))
                         }
                     }
                 )
