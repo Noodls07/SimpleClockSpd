@@ -17,7 +17,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.simpleclock.settingsmodel.ClockModel
@@ -46,11 +45,7 @@ fun DropDownField(model: ClockModel){
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Text(
-                text = "Clock font size",
-                //fontSize = 20.sp,
-                color = Color.Black
-            )
+            Text( text = "Clock font size" )
 
             ExposedDropdownMenuBox(
                 modifier = Modifier.width(150.dp).padding(start = 5.dp),

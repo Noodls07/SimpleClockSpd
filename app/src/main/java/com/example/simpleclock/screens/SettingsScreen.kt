@@ -106,8 +106,7 @@ fun SettingsScreen(
 
             Text(
                 modifier = Modifier.padding(start = 5.dp),
-                text = "Clock preview",
-                color = Color.Black
+                text = "Clock preview"
             )
             Box (modifier = Modifier
                 .fillMaxWidth()
@@ -135,8 +134,7 @@ fun SettingsScreen(
             }
             Text(
                 modifier = Modifier.padding(start = 5.dp),
-                text = "GPS correction",
-                color = Color.Black
+                text = "GPS correction"
             )
             SliderGPS(
                 value =  model.gpsCorrection,

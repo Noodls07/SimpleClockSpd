@@ -39,7 +39,7 @@ fun SliderGPS(
             valueRange = 0f..5f,
 
         )
-        Text(text = sliderPosition.toInt().toString() +  " км/ч",
+        Text(text = "+ " + sliderPosition.toInt().toString() +  " км/ч",
             fontSize = 20.sp,
             modifier = Modifier.align(alignment = Alignment.CenterHorizontally)
         )
