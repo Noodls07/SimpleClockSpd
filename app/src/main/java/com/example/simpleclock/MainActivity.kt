@@ -18,35 +18,18 @@ import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.SideEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.view.WindowCompat
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.Navigation
 import com.example.simpleclock.navigation.Navigation
-import com.example.simpleclock.navigation.Screens
 import com.example.simpleclock.settingsmodel.ClockModel
-
-import com.example.simpleclock.screens.SettingsScreen
-import com.example.simpleclock.settingsmodel.DataSettings
 import com.example.simpleclock.settingsmodel.DataStoreManager
 import com.example.simpleclock.ui.theme.SimpleClockTheme
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 var speed = mutableIntStateOf(0)
 
@@ -100,6 +83,7 @@ class MainActivity : ComponentActivity() {
                         model.r = it.r
                         model.g = it.g
                         model.b = it.b
+                        model.gpsCorrection = it.gps
                   }
                 }
 

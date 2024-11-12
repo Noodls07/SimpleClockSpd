@@ -1,13 +1,11 @@
 package com.example.simpleclock.settingsmodel
 
 import android.content.Context
-import androidx.activity.viewModels
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
-import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.map
 
@@ -23,6 +21,7 @@ class DataStoreManager(private val context: Context) {
             pref[intPreferencesKey("color_r")] = clockSettings.r
             pref[intPreferencesKey("color_g")] = clockSettings.g
             pref[intPreferencesKey("color_b")] = clockSettings.b
+            pref[intPreferencesKey("gps")] = clockSettings.gpsCorrection
         }
     }
 
@@ -32,7 +31,8 @@ class DataStoreManager(private val context: Context) {
                 pref[floatPreferencesKey("clockTextSizeSmall")] ?: 25f,
                 pref[intPreferencesKey("color_r")] ?: 11,
                 pref[intPreferencesKey("color_g")] ?: 11,
-                pref[intPreferencesKey("color_b")] ?: 11
+                pref[intPreferencesKey("color_b")] ?: 11,
+                pref[intPreferencesKey("gps")] ?: 0
             )
         }
 

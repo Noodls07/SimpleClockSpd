@@ -32,6 +32,7 @@ import com.example.simpleclock.R
 import com.example.simpleclock.WindowType
 import com.example.simpleclock.components.ColorImage
 import com.example.simpleclock.components.DropDownField
+import com.example.simpleclock.components.SliderGPS
 import com.example.simpleclock.rememberWindowSize
 import com.example.simpleclock.settingsmodel.ClockModel
 import com.example.simpleclock.settingsmodel.DataStoreManager
@@ -92,15 +93,16 @@ fun SettingsScreen(
     ) {paddingValues ->
         Column(modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues)
-            .background(Color.LightGray),
+            //.verticalScroll(rememberScrollState())
+            //.background(Color.LightGray)
+            .padding(paddingValues),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         )
         {
             DropDownField(model)
 
-            ColorImage(model, height = 0.8F)
+            ColorImage(model, height = 0.6F)
 
             Text(
                 modifier = Modifier.padding(start = 5.dp),
@@ -131,6 +133,17 @@ fun SettingsScreen(
                     }
                 )
             }
+            Text(
+                modifier = Modifier.padding(start = 5.dp),
+                text = "GPS correction",
+                color = Color.Black
+            )
+            SliderGPS(
+                value =  model.gpsCorrection,
+                onGpsCorrection = {
+                    model.gpsCorrection = it
+                }
+            )
         }
 
     }
@@ -166,19 +179,18 @@ fun SettingsScreenElse(
         Row(modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues)
-            .background(Color.LightGray),
+            //.background(Color.LightGray)
+            ,
             verticalAlignment =  Alignment.CenterVertically
         )
         {
-            ColorImage(model, width = 0.8F)
+            ColorImage(model, width = 0.7F)
 
             Spacer(modifier = Modifier.height(10.dp))
 
             Column(modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues),
-
-                verticalArrangement = Arrangement.Top,)
+                .fillMaxSize(),
+                verticalArrangement = Arrangement.Top)
             {
                 DropDownField(model)
 
@@ -212,6 +224,17 @@ fun SettingsScreenElse(
                         }
                     )
                 }
+                Text(
+                    modifier = Modifier.padding(start = 5.dp),
+                    text = "GPS correction",
+                    color = Color.Black
+                )
+                SliderGPS(
+                    value =  model.gpsCorrection,
+                    onGpsCorrection = {
+                        model.gpsCorrection = it
+                    }
+                )
             }
         }
 
@@ -223,7 +246,10 @@ fun SettingsScreenElse(
 }
 
 
-@Preview(showSystemUi = true)
+@Preview(showSystemUi = true,
+
+    //device = Devices.TABLET
+)
 @Composable
 fun SowImg(){
     SimpleClockTheme() {

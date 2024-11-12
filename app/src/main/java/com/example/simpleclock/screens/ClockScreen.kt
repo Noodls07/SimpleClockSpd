@@ -27,7 +27,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -69,7 +68,7 @@ fun ClockScreen(
     model: ClockModel,
     gotoSettingsScreen:()->Unit
 ) {
-    val contextM = LocalContext.current
+    //val contextM = LocalContext.current
     Scaffold(
         floatingActionButton = {
             if (!model.pipOn){
@@ -133,12 +132,12 @@ fun ClockScreen(
 
             Row (horizontalArrangement = Arrangement.Center){
                 Text(
-                    text = if ( speed.intValue > 0) (speed.intValue + 4).toString()
+                    text = if ( speed.intValue > 0) (speed.intValue + model.gpsCorrection).toString()
                            else speed.intValue.toString(),
                     fontFamily =  FontFamily(
                         Font(R.font.sairasemicondensed_bold),
                         ),
-                    color = if ((speed.intValue >= 0) and (speed.intValue+4<=120)) Color(0xFFFFFFFF)
+                    color = if ((speed.intValue >= 0) and (speed.intValue + model.gpsCorrection<=120)) Color(0xFFFFFFFF)
                             else Color(0xFFF57F17),
                     fontSize = if (!model.pipOn) 60.sp else 30.sp,
                     textAlign = TextAlign.Center,
@@ -168,7 +167,7 @@ fun ClockScreenElse(
     model: ClockModel,
     gotoSettingsScreen:()->Unit
 ) {
-    val contextM = LocalContext.current
+    //val contextM = LocalContext.current
     Scaffold(
         floatingActionButton = {
             if (!model.pipOn){
@@ -235,18 +234,12 @@ fun ClockScreenElse(
                 }
             }
             VerticalDivider(modifier = Modifier
-                .padding(start = 15.dp, end = 15.dp)
-                .height(((model.clockTextSizeBig + model.clockTextSizeSmall)*1.2).dp)
-                ,
+                            .padding(start = 20.dp, end = 20.dp)
+                            .height(((model.clockTextSizeBig + model.clockTextSizeSmall)*1.2).dp),
                 thickness = 3.dp,
                 color = Color.White)
-//            Text( textAlign =TextAlign.Center,
-//                text = "|",
-//                color = Color.White,
-//                fontSize = ((model.clockTextSizeBig + model.clockTextSizeSmall)*1.5).sp,
-//                fontWeight =FontWeight.W100
-//            )
 
+            //Spacer(modifier = Modifier.width(20.dp))
             //if (!model.pipOn) Spacer(modifier = Modifier.size(20.dp))
 
             Row(
@@ -254,16 +247,14 @@ fun ClockScreenElse(
                 verticalAlignment = Alignment.CenterVertically
             ){
                 Text(
-                    text = if ( speed.intValue > 0) (speed.intValue + 4).toString()
+                    text = if ( speed.intValue > 0) (speed.intValue + model.gpsCorrection).toString()
                            else speed.intValue.toString(),
                     fontFamily =  FontFamily(
                         Font(R.font.sairasemicondensed_bold),//sairasemicondensed_bold
                     ),
-                    color = if ((speed.intValue >= 0) and (speed.intValue+4<=120)) Color(0xFFFFFFFF)
-                    else Color(0xFFF57F17),
-                    fontSize = if (!model.pipOn) 65.sp else 30.sp,
-                    textAlign = TextAlign.Center,
-
+                    color = if ((speed.intValue >= 0) and (speed.intValue + model.gpsCorrection<=120)) Color(0xFFFFFFFF)
+                            else Color(0xFFF57F17),
+                    fontSize = if (!model.pipOn) 65.sp else 30.sp
                     )
 
                 Spacer(modifier = Modifier.width(20.dp))
@@ -274,9 +265,7 @@ fun ClockScreenElse(
                         Font(R.font.sairasemicondensed_bold),
                     ),
                     fontSize = if (!model.pipOn) 40.sp else 30.sp,
-                    //textAlign = TextAlign.Center,
                     color = Color(0xFF7986CB)
-
                 )
 
             }
