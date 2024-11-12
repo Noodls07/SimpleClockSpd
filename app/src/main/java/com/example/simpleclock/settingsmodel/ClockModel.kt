@@ -14,7 +14,7 @@ class ClockModel() : ViewModel() {
 
 
 
-    var clockTextSizeBig by mutableFloatStateOf(130f)
+    var clockTextSizeBig by mutableFloatStateOf(30f)
     var clockTextSizeSmall by mutableFloatStateOf(20f)
     var r by mutableIntStateOf(163)
     var g by mutableIntStateOf(163)
