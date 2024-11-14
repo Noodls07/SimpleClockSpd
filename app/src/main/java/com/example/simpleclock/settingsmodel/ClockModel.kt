@@ -21,7 +21,7 @@ class ClockModel() : ViewModel() {
     var b by mutableIntStateOf(163)
     var pipOn by mutableStateOf(false)
     var settingsScreenIsOn by mutableStateOf(false)
-    var gpsCorrection : Int = 0
+    var gpsCorrection by mutableIntStateOf(0)
 
     fun setSize(size: Float){
         clockTextSizeBig = size

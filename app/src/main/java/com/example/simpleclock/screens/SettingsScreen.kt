@@ -2,7 +2,9 @@ package com.example.simpleclock.screens
 
 
 import android.widget.TextClock
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -73,7 +75,10 @@ fun SettingsScreen(
     dataStoreManager: DataStoreManager
 ) {
     //val context = LocalContext.current
-
+    BackHandler {
+        model.settingsScreenIsOn = false
+        gotoClockScreen()
+    }
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -105,13 +110,15 @@ fun SettingsScreen(
             ColorImage(model, height = 0.6F)
 
             Text(
-                modifier = Modifier.padding(start = 5.dp),
-                text = "Clock preview"
+                modifier = Modifier.fillMaxWidth()
+                    .padding(start = 3.dp)
+                    .border(1.dp, Color(0xFFBDBDBD), RoundedCornerShape(5.dp)),
+                text = " Clock preview"
             )
             Box (modifier = Modifier
                 .fillMaxWidth()
                 .height(100.dp)
-                .padding(5.dp)
+                .padding(3.dp)
                 .clip(RoundedCornerShape(5.dp))
                 .background(Color(model.r, model.g, model.b))
                 , contentAlignment = Alignment.Center
@@ -133,8 +140,10 @@ fun SettingsScreen(
                 )
             }
             Text(
-                modifier = Modifier.padding(start = 5.dp),
-                text = "GPS correction"
+                modifier = Modifier.padding(start = 3.dp)
+                    .fillMaxWidth()
+                    .border(1.dp, Color(0xFFBDBDBD), RoundedCornerShape(5.dp)),
+                text = " GPS correction speed"
             )
             SliderGPS(
                 value =  model.gpsCorrection,
@@ -155,7 +164,10 @@ fun SettingsScreenElse(
     gotoClockScreen:()->Unit,
     dataStoreManager: DataStoreManager
 ) {
-
+    BackHandler {
+        model.settingsScreenIsOn = false
+        gotoClockScreen()
+    }
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(
@@ -193,14 +205,15 @@ fun SettingsScreenElse(
                 DropDownField(model)
 
                 Text(
-                    modifier = Modifier.padding(start = 5.dp),
-                    text = "Clock preview",
-                    color = Color.Black
+                    modifier = Modifier.padding(start = 3.dp)
+                        .fillMaxWidth()
+                        .border(1.dp, Color(0xFFBDBDBD), RoundedCornerShape(5.dp)),
+                    text = " Clock preview"
                 )
                 Box (modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp)
-                    .padding(5.dp)
+                    .padding(3.dp)
                     .clip(RoundedCornerShape(5.dp))
                     .background(Color(model.r, model.g, model.b))
                     , contentAlignment = Alignment.Center
@@ -223,9 +236,10 @@ fun SettingsScreenElse(
                     )
                 }
                 Text(
-                    modifier = Modifier.padding(start = 5.dp),
-                    text = "GPS correction",
-                    color = Color.Black
+                    modifier = Modifier.padding(start = 3.dp)
+                        .fillMaxWidth()
+                        .border(1.dp, Color(0xFFBDBDBD), RoundedCornerShape(5.dp)),
+                    text = " GPS correction speed"
                 )
                 SliderGPS(
                     value =  model.gpsCorrection,

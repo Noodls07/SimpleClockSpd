@@ -34,7 +34,7 @@ fun Navigation(model: ClockModel, dataStoreManager: DataStoreManager) {
             ShowSettingsScreen(
                 model =  model,
                 gotoClockScreen = {
-                     navController.popBackStack()
+                     navController.navigateUp()
                 },
                 dataStoreManager = dataStoreManager
             )

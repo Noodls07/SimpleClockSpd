@@ -1,10 +1,11 @@
 package com.example.simpleclock.components
 
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -17,6 +18,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.simpleclock.settingsmodel.ClockModel
@@ -41,14 +44,17 @@ fun DropDownField(model: ClockModel){
 //
 //    ){
         Row(
-            modifier = Modifier.fillMaxWidth().padding(5.dp),
+            modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.SpaceBetween
+            horizontalArrangement = Arrangement.Center
         ) {
-            Text( text = "Clock font size" )
+
 
             ExposedDropdownMenuBox(
-                modifier = Modifier.width(150.dp).padding(start = 5.dp),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(3.dp)
+                    .clip(shape = RoundedCornerShape(5.dp))
+                    .border(1.dp, Color(0xFFBDBDBD), RoundedCornerShape(5.dp)),
                 expanded = expanded.value,
                 onExpandedChange = {
                     expanded.value = !expanded.value
@@ -58,10 +64,13 @@ fun DropDownField(model: ClockModel){
                     value = model.clockTextSizeBig.toInt().toString(),//selectedText.value,
                     onValueChange = {},
                     readOnly = true,
+                    label = {
+                        Text( text = "Clock font size" )
+                    },
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded.value)
                     },
-                    modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable),
+                    modifier = Modifier.menuAnchor(MenuAnchorType.PrimaryNotEditable).fillMaxWidth(),
                     colors = ExposedDropdownMenuDefaults.textFieldColors()
                 )
                 ExposedDropdownMenu(

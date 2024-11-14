@@ -35,46 +35,32 @@ var speed = mutableIntStateOf(0)
 
 class MainActivity : ComponentActivity() {
 
+    private var tmpBigSize = 0F
     private var dataStoreManager = DataStoreManager(this@MainActivity)
-    //private val model by viewModels<ClockModel>() - создание модели без параметров
-    //с параметрами
-    private val model by viewModels<ClockModel>(
+    private val model by viewModels<ClockModel>() //- создание модели без параметров
+//с параметрами
+//    private val model by viewModels<ClockModel>(
 //        factoryProducer = {
 //            object : ViewModelProvider.Factory {
 //                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                    return ClockModel() as T
+//                    return ClockModel(param) as T
 //                }
 //            }
 //        }
-    )
-    //private lateinit var model : ClockModel
-    private var tmpBigSize = 0F
-
+//    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         enableEdgeToEdge(
             statusBarStyle = SystemBarStyle.light( Color.Transparent.toArgb(), Color.Transparent.toArgb())
         )
-
         super.onCreate(savedInstanceState)
-
-
         //dataStoreManager.getSettings()
 
         setContent {
+
             requestPermission(context = LocalContext.current)
             SimpleClockTheme() {
-//                  model = viewModel<ClockModel>(
-//                    factory =
-//                        object : ViewModelProvider.Factory {
-//                            override fun <T : ViewModel> create(modelClass: Class<T>): T {
-//                                return ClockModel(this@MainActivity) as T
-//                            }
-//                        }
-//
-//                )
-
                 LaunchedEffect(true) {
                    // model.readDataFromStore()
                   dataStoreManager.getSettings().collect {
@@ -92,9 +78,6 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background,
 
                 ) {
-                    //Greeting("Android")
-                    //ClockScreen(model)
-                    //SettingsScreen(model)
                     Navigation(model,dataStoreManager)
                 }
             }
@@ -106,10 +89,10 @@ class MainActivity : ComponentActivity() {
         if (!model.settingsScreenIsOn) enterPIPMode()
     }
 
-    override fun onBackPressed() {
-        super.onBackPressed()
-        model.settingsScreenIsOn = false
-    }
+//    override fun onBackPressed() {
+//        super.onBackPressed()
+//        model.settingsScreenIsOn = false
+//    }
 
 
 
