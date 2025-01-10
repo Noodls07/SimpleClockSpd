@@ -35,8 +35,8 @@ fun SliderGPS(
                 activeTrackColor = MaterialTheme.colorScheme.secondary,
                 inactiveTrackColor = MaterialTheme.colorScheme.secondaryContainer,
             ),
-            steps = 4,
-            valueRange = 0f..5f,
+            steps = 9,
+            valueRange = 0f..10f,
 
         )
         Text(text = "+ " + sliderPosition.toInt().toString() +  " км/ч",
